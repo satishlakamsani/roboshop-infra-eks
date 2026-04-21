@@ -1,0 +1,6 @@
+deployment:
+  replicas: "1"
+  imageName: "satishlakamsani/frontend"
+  imageVersion: "1.0.0"
+ingress:
+  host: "roboshop-dev.pugasaha.online"
