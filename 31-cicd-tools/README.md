@@ -35,8 +35,8 @@ Default domain: `daws88s.online`
 |---|---|---|
 | `project` | `roboshop` | Project name used in resource names and tags |
 | `environment` | `dev` | Environment name used in resource names and tags |
-| `zone_id` | `Z05013202FKF0ZL12WAOP` | Route 53 hosted zone ID |
-| `domain_name` | `daws88s.online` | Base domain for DNS records |
+| `zone_id` | `Z0031972RV2QBNE1P8DT` | Route 53 hosted zone ID |
+| `domain_name` | `pugasaha.online` | Base domain for DNS records |
 | `sonar` | `true` | Set to `false` to skip SonarQube instance and its DNS record |
 
 
