@@ -61,7 +61,7 @@ Once you setup and login to jenkins.
 * sonar-creds
 
 ### Master Node architecture
-* jenkins agent is jenkins-agent.daws88s.online
+* jenkins agent is jenkins-agent.pugasaha.online
 * roboshop as label
 
 # Sonar
