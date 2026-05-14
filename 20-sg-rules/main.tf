@@ -106,6 +106,39 @@ resource "aws_security_group_rule" "eks_control_plane_bastion" {
   security_group_id = local.eks_control_plane_sg_id
 }
 
+resource "aws_security_group_rule" "eks_control_plane_jenkins_agent" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  # Where traffic is coming from
+  source_security_group_id = local.jenkins_agent_sg_id
+  security_group_id = local.eks_control_plane_sg_id
+}
+
+resource "aws_security_group_rule" "runner_ssh" {
+  type              = "ingress"
+  from_port         = 22
+  to_port           = 22
+  protocol          = "tcp"
+  # Where traffic is coming from
+  cidr_blocks = ["0.0.0.0/0"]
+  security_group_id = local.runner_sg_id
+}
+
+
+# EKS control plane should accept 443 from GitHub runner
+resource "aws_security_group_rule" "eks_control_plane_runner" {
+  type              = "ingress"
+  from_port         = 443
+  to_port           = 443
+  protocol          = "tcp"
+  # Where traffic is coming from
+  source_security_group_id = local.runner_sg_id
+  security_group_id = local.eks_control_plane_sg_id
+}
+
+
 resource "aws_security_group_rule" "eks_node_bastion" {
   type              = "ingress"
   from_port         = 22
