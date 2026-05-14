@@ -5,6 +5,18 @@ resource "aws_instance" "jenkins" {
   vpc_security_group_ids = [local.jenkins_sg_id]
   user_data = file("jenkins.sh")
 
+
+  root_block_device {
+    volume_size = 50
+    volume_type = "gp3"
+    tags = merge(
+      {
+          Name = "${var.project}-${var.environment}-jenkins"
+      },
+    local.common_tags
+    )
+  }
+
   tags = merge(
     {
         Name = "${var.project}-${var.environment}-jenkins"
@@ -35,6 +47,34 @@ resource "aws_instance" "jenkins_agent" {
   tags = merge(
     {
         Name = "${var.project}-${var.environment}-jenkins-agent"
+    },
+    local.common_tags
+  )
+}
+
+
+resource "aws_instance" "runner" {
+  count = var.runner ? 1 : 0
+  ami           = local.ami_id
+  instance_type = "t3.micro"
+  subnet_id = local.public_subnet_id
+  vpc_security_group_ids = [ local.runner_sg_id ]
+  user_data = file("runner.sh")
+
+  root_block_device {
+    volume_size = 50
+    volume_type = "gp3"
+    tags = merge(
+      {
+          Name = "${var.project}-${var.environment}-runner"
+      },
+    local.common_tags
+    )
+  }
+
+  tags = merge(
+    {
+        Name = "${var.project}-${var.environment}-runner"
     },
     local.common_tags
   )
